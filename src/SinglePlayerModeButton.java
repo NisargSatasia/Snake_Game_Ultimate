@@ -8,12 +8,13 @@ public class SinglePlayerModeButton extends Actor
     {
         setImage("img/singlePlayer.png");
     }
-    SnakeWorld w1 = new SnakeWorld();
+
     public void act()
     {
         if(Mayflower.mouseClicked(this))
         {
-            System.out.println("single player mode");
+            System.out.println("local multiplayer player mode");
+            SnakeWorld w1 = new SnakeWorld();
             Mayflower.setWorld(w1);
         }
     }
