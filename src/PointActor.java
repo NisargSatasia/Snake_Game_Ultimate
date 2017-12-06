@@ -13,7 +13,6 @@ public class PointActor extends Actor
         setImage("img/point.png");
         row = (int) Math.floor(Math.random() * 38)+1;
         column = (int) Math.floor(Math.random() * 28)+1;
-
     }
     public boolean isTouchingAnthing() {
         return this.isTouching(Actor.class);

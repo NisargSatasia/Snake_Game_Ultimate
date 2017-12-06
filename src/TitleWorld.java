@@ -1,4 +1,3 @@
-
 import mayflower.*;
 import mayflower.Color;
 import mayflower.Label;
@@ -13,7 +12,7 @@ public class TitleWorld extends World
         this.addObject(multi, 600,200);
     }
     SinglePlayerModeButton onePlayer = new SinglePlayerModeButton();
-    LocalMultiplayer multi = new LocalMultiplayer();
+    LocalMultiplayerButton multi = new LocalMultiplayerButton();
 
     public void act()
     {

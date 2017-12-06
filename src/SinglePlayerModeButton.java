@@ -14,7 +14,7 @@ public class SinglePlayerModeButton extends Actor
         if(Mayflower.mouseClicked(this))
         {
             System.out.println("local multiplayer player mode");
-            SnakeWorld w1 = new SnakeWorld();
+            OnePlayerSnake w1 = new OnePlayerSnake();
             Mayflower.setWorld(w1);
         }
     }
