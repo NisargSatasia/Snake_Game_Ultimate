@@ -14,16 +14,18 @@ public class OnePlayerSnake extends World {
     private long targetTime;
     private long speed;
     private Snake snake;
+    private boolean grew;
 
     public OnePlayerSnake(){
         scoreDisplay = new Label("Score: ",20);
+        grew = false;
         int[] keyset = {Keyboard.KEY_UP, Keyboard.KEY_DOWN, Keyboard.KEY_LEFT, Keyboard.KEY_RIGHT};
         snake = new Snake(keyset);
         SnakeActor snakeActor = new SnakeActor(1);
         snake.addHead(snakeActor);
 
         startTime = System.nanoTime();
-        speed = 75000000;
+        speed = 150000000;
         targetTime = speed;
 
         for(int i=0; i<board.length; i++){
@@ -97,7 +99,9 @@ public class OnePlayerSnake extends World {
     }
 
     public void act() {
+
         SnakeActor snakeHead = snake.getHead();
+
         if(snakeHead.isTouching(PointActor.class))
         {
             removeObject(point);
@@ -120,6 +124,7 @@ public class OnePlayerSnake extends World {
                 i=0;
                scoreDisplayer(scoreDisplay,snake.size());
             }
+            grew = true;
         }
 
         snake.setDirection();
@@ -131,6 +136,12 @@ public class OnePlayerSnake extends World {
             snake.move();
             targetTime = targetTime + speed - timeElapsed;
             startTime = System.nanoTime();
+            grew = false;
+        }
+
+        if(snakeHead.dead() && !grew){
+            GameOver gameOverWorld = new GameOver();
+            Mayflower.setWorld(gameOverWorld);
         }
     }
 }

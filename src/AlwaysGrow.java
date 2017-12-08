@@ -1,28 +1,28 @@
-import mayflower.*;
+import mayflower.Actor;
+import mayflower.Keyboard;
+import mayflower.Mayflower;
+import mayflower.World;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 /**
- * Created by s581467 on 12/4/2017.
+ * Created by s581467 on 12/6/2017.
  */
-
-
-
-public class LocalMultiplayer extends World {
-
+public class AlwaysGrow extends World{
     private int[][] board = new int[40][30];
-    private PointActor point;
     private long startTime;
     private long targetTime;
     private long speed;
-    private ArrayList<Snake> snakes;
-    private boolean grew;
+    private ArrayList<AlwaysGrowSnake> snakes;
+    private int snakesLeft;
 
-    public LocalMultiplayer(int playerCount){
-        grew = false;
+
+
+    public AlwaysGrow(int playerCount){
         int[][] allkeys = new int[4][4];
+
+        snakesLeft = playerCount;
 
         int[] keys1 = {Keyboard.KEY_UP, Keyboard.KEY_DOWN, Keyboard.KEY_LEFT, Keyboard.KEY_RIGHT};
         int[] keys2 = {Keyboard.KEY_W, Keyboard.KEY_S, Keyboard.KEY_A, Keyboard.KEY_D};
@@ -41,8 +41,7 @@ public class LocalMultiplayer extends World {
         System.out.println("test");
 
         for (int i = 0; i<playerCount; i++) {
-            snakes.add(new Snake(allkeys[i]));
-            snakes.get(i).addHead(new SnakeActor(i+1));
+            snakes.add(new AlwaysGrowSnake(allkeys[i], new SnakeActor(i+1), i+1));
         }
 
         System.out.println("test");
@@ -99,16 +98,16 @@ public class LocalMultiplayer extends World {
             for (int j = 0; j < board[0].length; j++)
             {
                 if (board[i][j] == 1) {
-                    addObject(snakes.get(0).getHead(), i * 20, j * 20);
+                    addObject(snakes.get(0).getSnake(), i * 20, j * 20);
                 }
                 else if (board[i][j] == 2) {
-                    addObject(snakes.get(1).getHead(), i * 20, j * 20);
+                    addObject(snakes.get(1).getSnake(), i * 20, j * 20);
                 }
                 else if (board[i][j] == 3) {
-                    addObject(snakes.get(2).getHead(), i * 20, j * 20);
+                    addObject(snakes.get(2).getSnake(), i * 20, j * 20);
                 }
                 else if (board[i][j] == 4) {
-                    addObject(snakes.get(3).getHead(), i * 20, j * 20);
+                    addObject(snakes.get(3).getSnake(), i * 20, j * 20);
                 }
                 else if (board[i][j] == 5) {
                     addObject(new WallActor(), i * 20, j * 20);
@@ -118,24 +117,7 @@ public class LocalMultiplayer extends World {
         }
 
         List<Actor> obj = getObjects();
-        point = new PointActor();
 
-        if(!(obj.contains(point)))
-        {
-            board[point.getRow()][point.getCol()] = 6;
-        }
-
-        for(int i=0; i<board.length; i++)
-        {
-            for (int j = 0; j < board[0].length; j++)
-            {
-                if (board[i][j] == 6)
-                {
-                    addObject(point, i * 20, j * 20);
-                }
-            }
-
-        }
     }
 
     public void act(){
@@ -143,67 +125,57 @@ public class LocalMultiplayer extends World {
         boolean allMoving = true;
 
         for (int i = 0; i<snakes.size(); i++) {
-            SnakeActor snakeHead = snakes.get(i).getHead();
-            if(snakeHead.isTouching(PointActor.class))
-            {
-                removeObject(point);
-                point = new PointActor();
+            SnakeActor snakeHead = snakes.get(i).getSnake();
 
-                SnakeActor toAdd = new SnakeActor(snakeHead.getColor());
-                snakes.get(i).addTail(toAdd);
-
-                addObject(toAdd, snakeHead.getX(), snakeHead.getY());
-
-                int j = 1;
-
-                while(j!=0)
-                {
-                    if(point.isTouchingAnthing())
-                    {
-                        continue;
-                    }
-                    addObject(point, point.getRow()*20,point.getCol()*20);
-                    j=0;
-                }
-                grew =true;
-            }
-            if (snakes.get(i).getHead().getDirection() == 0){
+            if (snakes.get(i).getSnake().getDirection() == 0){
                 allMoving = false;
             }
-            if(snakeHead.dead() && !grew)
-            {
-                for (SnakeActor s : snakes.get(i).getSegments()) {
-                    removeObject(s);
-                    snakes.get(i).getSegments().remove(s);
-                }
-                snakes.remove(i);
+        }
+
+        for (AlwaysGrowSnake player: snakes) {
+            player.setDirection();
+            if(player.getSnake().dead()){
+                snakesLeft--;
             }
         }
 
-        for (Snake player: snakes) {
-            player.setDirection();
-        }
-
-        if(allMoving == false){
+        if(allMoving == false) {
             startTime = System.nanoTime();
             return;
         }
+
+
+
+
 
         long timeElapsed;
 
         if((timeElapsed = System.nanoTime()-startTime)>targetTime) {
             System.out.println("Target Time: "+ targetTime+"      Time Elapsed: "+ timeElapsed);
-            for (Snake player: snakes) {
+            for (AlwaysGrowSnake player: snakes) {
                 player.move();
             }
             targetTime = targetTime + speed - timeElapsed;
             startTime = System.nanoTime();
-            grew = false;
         }
 
 
-        //keep track of winner somehow
-        if(snakes.size() == 1){
+        //When there is no winner
+        if(snakesLeft==0){
+            GameOver gameOverWorld = new GameOver();
+            Mayflower.setWorld(gameOverWorld);
+        }
+
+
+        //When there is winner
+        if(snakesLeft==1){
+
+            AlwaysGrowSnake winner;
+            for(AlwaysGrowSnake player: snakes){
+                if (!player.getSnake().dead()){
+                    winner = player;
+                }
+            }
             GameOver gameOverWorld = new GameOver();
             Mayflower.setWorld(gameOverWorld);
         }
