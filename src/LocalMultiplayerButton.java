@@ -13,8 +13,8 @@ public class LocalMultiplayerButton extends Actor
     {
         if(Mayflower.mouseClicked(this))
         {
-            System.out.println("local multiplayer");
-            LocalMultiplayer ni = new LocalMultiplayer(2);
+            System.out.println("local multiplayer select screen");
+            NumberOfPlayers ni = new NumberOfPlayers();
             Mayflower.setWorld(ni);
         }
     }

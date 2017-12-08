@@ -12,7 +12,7 @@ public class Snake{
 
     private Deque<SnakeActor> segments;
     private SnakeActor snake;
-    private int[] keys;
+    int[] keys;
 
     public Snake(int[] keyset){
         segments = new ArrayDeque<>();
@@ -31,10 +31,6 @@ public class Snake{
 
     public int size(){
         return segments.size();
-    }
-
-    public Deque<SnakeActor> getSegments(){
-        return segments;
     }
 
     public void setDirection(){
@@ -66,7 +62,12 @@ public class Snake{
         newHead.setDirection(snake.getDirection());
 
         newHead.move();
-    }
 
+        if(newHead.isTouching(SnakeActor.class))
+        {
+            GameOver over = new GameOver();
+            Mayflower.setWorld(over);
+        }
+    }
 
 }

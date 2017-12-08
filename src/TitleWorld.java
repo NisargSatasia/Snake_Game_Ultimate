@@ -10,10 +10,12 @@ public class TitleWorld extends World
         setBackground("img/TitleScreen.png");
         this.addObject(onePlayer,200,200);
         this.addObject(multi, 600,200);
+        this.addObject(ag, 200,400);
+
     }
     SinglePlayerModeButton onePlayer = new SinglePlayerModeButton();
     LocalMultiplayerButton multi = new LocalMultiplayerButton();
-
+    AlwaysGrowButton ag = new AlwaysGrowButton();
     public void act()
     {
 

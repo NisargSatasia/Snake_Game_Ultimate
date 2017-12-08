@@ -12,8 +12,7 @@ public class Runner extends Mayflower
         //Mayflower.setFullScreen(true);
 
         //World startingWorld = new OnePlayerSnake();
-        //World startingWorld = new LocalMultiplayer(2);
-        World startingWorld = new AlwaysGrow(2);
+        World startingWorld = new TitleWorld();
         Mayflower.setWorld(startingWorld);
     }
 

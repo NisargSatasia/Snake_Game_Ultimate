@@ -1,4 +1,7 @@
-import mayflower.*;
+import mayflower.Actor;
+import mayflower.Keyboard;
+import mayflower.Label;
+import mayflower.World;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,11 +20,9 @@ public class LocalMultiplayer extends World {
     private long startTime;
     private long targetTime;
     private long speed;
-    private ArrayList<Snake> snakes;
-    private boolean grew;
+    private Snake[] snakes;
 
     public LocalMultiplayer(int playerCount){
-        grew = false;
         int[][] allkeys = new int[4][4];
 
         int[] keys1 = {Keyboard.KEY_UP, Keyboard.KEY_DOWN, Keyboard.KEY_LEFT, Keyboard.KEY_RIGHT};
@@ -35,17 +36,12 @@ public class LocalMultiplayer extends World {
         allkeys[3] = keys4;
 
 
-        snakes = new ArrayList<>();
+        snakes = new Snake[playerCount];
 
-
-        System.out.println("test");
-
-        for (int i = 0; i<playerCount; i++) {
-            snakes.add(new Snake(allkeys[i]));
-            snakes.get(i).addHead(new SnakeActor(i+1));
+        for (int i = 0; i<snakes.length; i++) {
+            snakes[i] = new Snake(allkeys[i]);
+            snakes[i].addHead(new SnakeActor(i+1));
         }
-
-        System.out.println("test");
 
 
         startTime = System.nanoTime();
@@ -92,23 +88,23 @@ public class LocalMultiplayer extends World {
             board[37][2] = 3;
             board[2][27] = 4;
         }
-        System.out.println("test");
+
 
         for(int i=0; i<board.length; i++)
         {
             for (int j = 0; j < board[0].length; j++)
             {
                 if (board[i][j] == 1) {
-                    addObject(snakes.get(0).getHead(), i * 20, j * 20);
+                    addObject(snakes[0].getHead(), i * 20, j * 20);
                 }
                 else if (board[i][j] == 2) {
-                    addObject(snakes.get(1).getHead(), i * 20, j * 20);
+                    addObject(snakes[1].getHead(), i * 20, j * 20);
                 }
                 else if (board[i][j] == 3) {
-                    addObject(snakes.get(2).getHead(), i * 20, j * 20);
+                    addObject(snakes[2].getHead(), i * 20, j * 20);
                 }
                 else if (board[i][j] == 4) {
-                    addObject(snakes.get(3).getHead(), i * 20, j * 20);
+                    addObject(snakes[3].getHead(), i * 20, j * 20);
                 }
                 else if (board[i][j] == 5) {
                     addObject(new WallActor(), i * 20, j * 20);
@@ -139,18 +135,16 @@ public class LocalMultiplayer extends World {
     }
 
     public void act(){
-
         boolean allMoving = true;
-
-        for (int i = 0; i<snakes.size(); i++) {
-            SnakeActor snakeHead = snakes.get(i).getHead();
+        for (int i = 0; i<snakes.length; i++) {
+            SnakeActor snakeHead = snakes[i].getHead();
             if(snakeHead.isTouching(PointActor.class))
             {
                 removeObject(point);
                 point = new PointActor();
 
-                SnakeActor toAdd = new SnakeActor(snakeHead.getColor());
-                snakes.get(i).addTail(toAdd);
+                SnakeActor toAdd = new SnakeActor(i+1);
+                snakes[i].addTail(toAdd);
 
                 addObject(toAdd, snakeHead.getX(), snakeHead.getY());
 
@@ -165,28 +159,12 @@ public class LocalMultiplayer extends World {
                     addObject(point, point.getRow()*20,point.getCol()*20);
                     j=0;
                 }
-                grew =true;
             }
-            if (snakes.get(i).getHead().getDirection() == 0){
-                allMoving = false;
-            }
-            if(snakeHead.dead() && !grew)
-            {
-                for (SnakeActor s : snakes.get(i).getSegments()) {
-                    removeObject(s);
-                    snakes.get(i).getSegments().remove(s);
-                }
-                snakes.remove(i);
-            }
+            //if (null == snakes[i].getHead().getDirection());
         }
 
         for (Snake player: snakes) {
             player.setDirection();
-        }
-
-        if(allMoving == false){
-            startTime = System.nanoTime();
-            return;
         }
 
         long timeElapsed;
@@ -198,15 +176,6 @@ public class LocalMultiplayer extends World {
             }
             targetTime = targetTime + speed - timeElapsed;
             startTime = System.nanoTime();
-            grew = false;
         }
-
-
-        //keep track of winner somehow
-        if(snakes.size() == 1){
-            GameOver gameOverWorld = new GameOver();
-            Mayflower.setWorld(gameOverWorld);
-        }
-
     }
 }

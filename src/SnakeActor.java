@@ -22,10 +22,8 @@ public class SnakeActor extends Actor {
     private int dir; // 8 is up, 2 is down , 4 is left, 6 is right
     private int curScore;
     private ArrayList<Integer> xcoord, ycoord;
-    private int color;
 
     public SnakeActor(int color) {
-        this.color = color;
         switch(color){
             case 1: setImage("img/snakeYellow.png");break;
             case 2: setImage("img/snakeGreen.png");break;
@@ -43,10 +41,6 @@ public class SnakeActor extends Actor {
 
         return this.getIntersectingObjects(cls).size() > 0;
     }
-    public int getColor(){
-        return color;
-    }
-
     public void move(){
         if (dir == 8) {
             setLocation(getX(), getY()-20);
@@ -73,16 +67,12 @@ public class SnakeActor extends Actor {
 
     public boolean dead()
     {
-        if(this.isTouching(SnakeActor.class)) {
-            return true;
-        }
-        if(this.isTouching(WallActor.class)){
+        if(this.isTouching(SnakeActor.class))
+        {
             return true;
         }
         return false;
     }
-
-
 
     public void setDirection(int direction) {
         dir = direction;
