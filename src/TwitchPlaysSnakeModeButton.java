@@ -14,7 +14,7 @@ public class TwitchPlaysSnakeModeButton extends Actor{
         if(Mayflower.mouseClicked(this))
         {
             System.out.println("twitch plays snake mode button is pressed");
-            NumberOfPlayers ni = new NumberOfPlayers();
+            TwitchPlaysSnakeMode ni = new TwitchPlaysSnakeMode(2);
             Mayflower.setWorld(ni);
         }
     }
