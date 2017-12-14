@@ -9,12 +9,14 @@ public class TwitchPlaysSnakeModeButton extends Actor{
         setImage("img/twitchplayer.png");
     }
 
+    NumberOfPlayers ni = new NumberOfPlayers();
+
+
     public void act()
     {
         if(Mayflower.mouseClicked(this))
         {
             System.out.println("twitch plays snake mode button is pressed");
-            TwitchPlaysSnakeMode ni = new TwitchPlaysSnakeMode(2);
             Mayflower.setWorld(ni);
         }
     }

@@ -17,20 +17,7 @@ public class TwitchPlaysSnakeMode extends World{
 
         scoreDisplay = new Label("Score: ",20);
 
-        int[][] allkeys = new int[4][4];
-
-        int[] keys1 = {Keyboard.KEY_UP, Keyboard.KEY_DOWN, Keyboard.KEY_LEFT, Keyboard.KEY_RIGHT};
-        int[] keys2 = {Keyboard.KEY_W, Keyboard.KEY_S, Keyboard.KEY_A, Keyboard.KEY_D};
-        int[] keys3 = {Keyboard.KEY_Y, Keyboard.KEY_H, Keyboard.KEY_G, Keyboard.KEY_J};
-        int[] keys4 = {Keyboard.KEY_P, Keyboard.KEY_SEMICOLON, Keyboard.KEY_L, Keyboard.KEY_APOSTROPHE};
-
-        allkeys[0] = keys1;
-        allkeys[1] = keys2;
-        allkeys[2] = keys3;
-        allkeys[3] = keys4;
-
-
-        snake = new Snake(keys1, keys2);
+        snake = new Snake(playerCount);
         SnakeActor snakeActor = new SnakeActor(1);
         snake.addHead(snakeActor);
 
