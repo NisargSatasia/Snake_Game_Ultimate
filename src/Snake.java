@@ -16,21 +16,18 @@ public class Snake{
     private Deque<SnakeActor> segments;
     private SnakeActor snake;
     private int[] keys;
-<<<<<<< HEAD
     boolean flag;
-=======
     private int[] keys2;
     private int[] keys3;
     private int[] keys4;
     private int multiplayer = 1;
->>>>>>> 68af76ac30d5191cc5ef1ac9f7e4da4bae1f8a94
+
 
     /*public Snake(int[] keyset){
         segments = new ArrayDeque<>();
         keys = keyset;
-<<<<<<< HEAD
         flag = true;
-=======
+
     }*/
     int[][] allkeys = new int[4][4];
 
@@ -63,7 +60,7 @@ public class Snake{
         keys = keyset1;
         keys2 = keyset2;
         multiplayer = 2;
->>>>>>> 68af76ac30d5191cc5ef1ac9f7e4da4bae1f8a94
+
     }
     public Snake(int[] keyset1, int[] keyset2, int[] keyset3){
 
