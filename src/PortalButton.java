@@ -2,9 +2,9 @@ import mayflower.Actor;
 import mayflower.Keyboard;
 import mayflower.Mayflower;
 
-public class SinglePlayerModeButton extends Actor
+public class PortalButton extends Actor
 {
-    public SinglePlayerModeButton()
+    public PortalButton()
     {
         setImage("img/singlePlayer.png");
     }
@@ -13,8 +13,7 @@ public class SinglePlayerModeButton extends Actor
     {
         if(Mayflower.mouseClicked(this))
         {
-            System.out.println("local multiplayer player mode");
-            OnePlayerSnake w1 = new OnePlayerSnake(false);
+            OnePlayerSnake w1 = new OnePlayerSnake(true);
             Mayflower.setWorld(w1);
         }
     }

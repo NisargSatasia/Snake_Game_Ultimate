@@ -1,18 +1,5 @@
-import mayflower.*;
 import mayflower.Actor;
-import mayflower.Color;
-import mayflower.Keyboard;
-import mayflower.Mayflower;
-import mayflower.World;
-import mayflower.Actor;
-import mayflower.Keyboard;
-import mayflower.Mayflower;
-import mayflower.Label;
-import mayflower.Timer;
-
-import java.awt.*;
-import java.util.ArrayList;
-//import java.awt.Label;
+import java.util.*;
 
 /**
  * Created by s581467 on 11/7/2017.
@@ -43,6 +30,12 @@ public class SnakeActor extends Actor {
 
         return this.getIntersectingObjects(cls).size() > 0;
     }
+
+    public <A extends Actor> A getOneIntersectingObject(Class<A> cls) {
+        java.util.List<A> ret = this.getIntersectingObjects(cls);
+        return ret.size() == 0?null:ret.get(0);
+    }
+
     public int getColor(){
         return color;
     }
@@ -57,7 +50,6 @@ public class SnakeActor extends Actor {
         } else if (dir == 6) {
             setLocation(getX()+20, getY());
         }
-
     }
 
     public int getDirection(){
@@ -73,7 +65,9 @@ public class SnakeActor extends Actor {
 
     public boolean dead()
     {
+
         if(this.isTouching(SnakeActor.class)) {
+            System.out.println("testlol");
             return true;
         }
         if(this.isTouching(WallActor.class)){

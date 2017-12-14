@@ -1,4 +1,7 @@
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Stack;
 
 import mayflower.*;
 import mayflower.Color;
@@ -14,8 +17,14 @@ public class OnePlayerSnake extends World {
     private long targetTime;
     private long speed;
     private Snake snake;
+    private Stack<Portal> portalStack;
+    private Map<Portal, int[]> portalMap;
 
-    public OnePlayerSnake(){
+    public OnePlayerSnake(boolean portals){
+
+        portalStack = new Stack<>();
+        portalMap = new HashMap<>();
+
         scoreDisplay = new Label("Score: ",20);
         int[] keyset = {Keyboard.KEY_UP, Keyboard.KEY_DOWN, Keyboard.KEY_LEFT, Keyboard.KEY_RIGHT};
         snake = new Snake(keyset);
@@ -26,29 +35,11 @@ public class OnePlayerSnake extends World {
         speed = 75000000;
         targetTime = speed;
 
-        for(int i=0; i<board.length; i++){
-            for(int j=0; j<board[0].length;j++){
-                board[i][j] = 0;
-            }
+        if(portals) {
+            board = Maps.getPortal1();
         }
-        for(int i =0;i<board.length;i++)
-        {
-            for(int j = 0;j<board[0].length;j++)
-            {
-                    if(i == 0) {
-                        board[i][j] = 2;
-                    }
-                    if(i==39)
-                    {
-                        board[i][j] =2;
-                    }
-
-            }
-        }
-        for(int i = 0;i<board.length;i++)
-        {
-            board[i][0]=2;
-            board[i][29]=2;
+        else{
+            board = Maps.getRegular();
         }
         board[37][27] = 1;
 
@@ -61,6 +52,23 @@ public class OnePlayerSnake extends World {
                 }
                 if (board[i][j] == 2) {
                     addObject(new WallActor(), i * 20, j * 20);
+                }
+                if (board[i][j] == 10) {
+                    Portal portal = new Portal();
+                    int[] temp = {i,j};
+                    portalMap.put(portal, temp);
+                    portalStack.push(portal);
+
+                    if(portalStack.size()>=2){
+                        Portal p1 = portalStack.pop();
+                        Portal p2 = portalStack.pop();
+
+                        p1.setLink(p2);
+                        p2.setLink(p1);
+
+                        addObject(p1, portalMap.get(p1)[0]*20, portalMap.get(p1)[1]*20);
+                        addObject(p2, portalMap.get(p2)[0]*20, portalMap.get(p2)[1]*20);
+                    }
                 }
             }
 
@@ -85,7 +93,11 @@ public class OnePlayerSnake extends World {
             }
 
         }
+
     }
+
+
+
 
     public void scoreDisplayer(Label label, int score)
     {
@@ -127,10 +139,14 @@ public class OnePlayerSnake extends World {
         long timeElapsed;
 
         if((timeElapsed = System.nanoTime()-startTime)>targetTime) {
-            System.out.println("Target Time: "+ targetTime+"      Time Elapsed: "+ timeElapsed);
             snake.move();
             targetTime = targetTime + speed - timeElapsed;
             startTime = System.nanoTime();
+        }
+
+        if(snakeHead.dead()){
+            GameOver gameOverWorld = new GameOver();
+            Mayflower.setWorld(gameOverWorld);
         }
     }
 }

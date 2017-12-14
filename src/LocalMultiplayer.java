@@ -1,6 +1,7 @@
 import mayflower.*;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -18,6 +19,8 @@ public class LocalMultiplayer extends World {
     private long targetTime;
     private long speed;
     private ArrayList<Snake> snakes;
+    private Map<Snake, Boolean> isDead;
+
     private boolean grew;
 
     public LocalMultiplayer(int playerCount){
@@ -36,16 +39,16 @@ public class LocalMultiplayer extends World {
 
 
         snakes = new ArrayList<>();
+        isDead = new HashMap<>();
 
 
-        System.out.println("test");
 
         for (int i = 0; i<playerCount; i++) {
             snakes.add(new Snake(allkeys[i]));
             snakes.get(i).addHead(new SnakeActor(i+1));
+            isDead.put(snakes.get(i), false);
         }
 
-        System.out.println("test");
 
 
         startTime = System.nanoTime();
@@ -92,7 +95,6 @@ public class LocalMultiplayer extends World {
             board[37][2] = 3;
             board[2][27] = 4;
         }
-        System.out.println("test");
 
         for(int i=0; i<board.length; i++)
         {
@@ -170,15 +172,23 @@ public class LocalMultiplayer extends World {
             if (snakes.get(i).getHead().getDirection() == 0){
                 allMoving = false;
             }
-            if(snakeHead.dead() && !grew)
-            {
-                for (SnakeActor s : snakes.get(i).getSegments()) {
+
+        }
+
+        List<Snake> toRemove = new ArrayList<>();
+
+
+        //Removing Dead Snakes
+        for(Snake player: snakes){
+            if(isDead.get(player).booleanValue()) {
+                for (SnakeActor s : player.getSegments()) {
                     removeObject(s);
-                    snakes.get(i).getSegments().remove(s);
+                    toRemove.add(player);
                 }
-                snakes.remove(i);
             }
         }
+
+        snakes.removeAll(toRemove);
 
         for (Snake player: snakes) {
             player.setDirection();
@@ -192,19 +202,30 @@ public class LocalMultiplayer extends World {
         long timeElapsed;
 
         if((timeElapsed = System.nanoTime()-startTime)>targetTime) {
-            System.out.println("Target Time: "+ targetTime+"      Time Elapsed: "+ timeElapsed);
             for (Snake player: snakes) {
+                if(player.getHead().dead() && !grew){
+                    isDead.put(player, new Boolean(true));
+                }
                 player.move();
+                if(player.getHead().dead() && !grew){
+                    isDead.put(player, new Boolean(true));
+                }
             }
+
             targetTime = targetTime + speed - timeElapsed;
             startTime = System.nanoTime();
+
             grew = false;
         }
 
 
+        if(snakes.size() == 0){
+            GameOver gameOverWorld = new GameOver(100);
+            Mayflower.setWorld(gameOverWorld);
+        }
         //keep track of winner somehow
         if(snakes.size() == 1){
-            GameOver gameOverWorld = new GameOver();
+            GameOver gameOverWorld = new GameOver(snakes.get(0).getHead().getColor());
             Mayflower.setWorld(gameOverWorld);
         }
 

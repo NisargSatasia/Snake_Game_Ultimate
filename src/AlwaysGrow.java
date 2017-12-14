@@ -151,7 +151,6 @@ public class AlwaysGrow extends World{
         long timeElapsed;
 
         if((timeElapsed = System.nanoTime()-startTime)>targetTime) {
-            System.out.println("Target Time: "+ targetTime+"      Time Elapsed: "+ timeElapsed);
             for (AlwaysGrowSnake player: snakes) {
                 player.move();
             }
@@ -168,15 +167,21 @@ public class AlwaysGrow extends World{
 
 
         //When there is winner
+
+        if(snakes.size() == 0){
+            GameOver gameOverWorld = new GameOver(100);
+            Mayflower.setWorld(gameOverWorld);
+        }
+
         if(snakesLeft==1){
 
-            AlwaysGrowSnake winner;
+            AlwaysGrowSnake winner = null;
             for(AlwaysGrowSnake player: snakes){
                 if (!player.getSnake().dead()){
                     winner = player;
                 }
             }
-            GameOver gameOverWorld = new GameOver();
+            GameOver gameOverWorld = new GameOver(winner.getSnake().getColor());
             Mayflower.setWorld(gameOverWorld);
         }
 

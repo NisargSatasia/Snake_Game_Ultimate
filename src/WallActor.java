@@ -11,11 +11,6 @@ public class WallActor extends Actor
 
     public void act()
     {
-        if(this.isTouching(SnakeActor.class))
-        {
-            this.removeTouching(SnakeActor.class);
-            GameOver over = new GameOver();
-            Mayflower.setWorld(over);
-        }
+
     }
 }
