@@ -18,8 +18,16 @@ public class TitleWorld extends World
         this.addObject(portals,600,400);
         this.addObject(multi, 600,200);
         this.addObject(ag, 200,400);
+        this.addObject(tw, 600,400);
 
     }
+<<<<<<< HEAD
+=======
+    SinglePlayerModeButton onePlayer = new SinglePlayerModeButton();
+    LocalMultiplayerButton multi = new LocalMultiplayerButton();
+    AlwaysGrowButton ag = new AlwaysGrowButton();
+    TwitchPlaysSnakeModeButton tw = new TwitchPlaysSnakeModeButton();
+>>>>>>> 68af76ac30d5191cc5ef1ac9f7e4da4bae1f8a94
 
     public void act()
     {
