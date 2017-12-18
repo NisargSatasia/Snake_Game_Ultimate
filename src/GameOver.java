@@ -21,6 +21,7 @@ public class GameOver extends World
         }
 
         this.addObject(new Label(winner+" wins!"), this.getWidth()/2, this.getHeight()/2);
+        this.addObject(b,400,500);
 
     }
     public void act()

@@ -67,7 +67,6 @@ public class SnakeActor extends Actor {
     {
 
         if(this.isTouching(SnakeActor.class)) {
-            System.out.println("testlol");
             return true;
         }
         if(this.isTouching(WallActor.class)){

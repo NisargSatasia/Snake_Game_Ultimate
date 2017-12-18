@@ -6,7 +6,7 @@ public class SnakeVsMiceButton extends Actor
 {
     public SnakeVsMiceButton()
     {
-        setImage("img/localMultiplayer.png");
+        setImage("img/3mice.png");
     }
 
     public void act()

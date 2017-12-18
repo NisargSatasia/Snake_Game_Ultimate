@@ -6,7 +6,7 @@ public class PortalButton extends Actor
 {
     public PortalButton()
     {
-        setImage("img/singlePlayer.png");
+        setImage("img/portal1.png");
     }
 
     public void act()
