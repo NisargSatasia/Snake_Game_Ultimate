@@ -17,6 +17,17 @@ public class Snake{
     private SnakeActor snake;boolean flag;
 
     private int[] keys;
+<<<<<<< HEAD
+=======
+    boolean flag;
+<<<<<<< HEAD
+
+    public Snake(int[] keyset){
+        segments = new ArrayDeque<>();
+        keys = keyset;
+        flag = true;
+=======
+>>>>>>> 2a48706ada7a0514c7f107297a1e0b9843b667a4
     private int[] keys2;
     private int[] keys3;
     private int[] keys4;
@@ -66,7 +77,25 @@ public class Snake{
         }
     }
 
+<<<<<<< HEAD
 
+=======
+        segments = new ArrayDeque<>();
+        keys = keyset1;
+        keys2 = keyset2;
+        multiplayer = 2;
+
+    }
+    public Snake(int[] keyset1, int[] keyset2, int[] keyset3){
+
+        segments = new ArrayDeque<>();
+        keys = keyset1;
+        keys2 = keyset2;
+        keys3 = keyset3;
+        multiplayer = 3;
+>>>>>>> a89002b97812e3635ec0784010e3456a5e620d11
+    }
+>>>>>>> 2a48706ada7a0514c7f107297a1e0b9843b667a4
     public void addHead(SnakeActor sa){
         segments.addFirst(sa);
     }
@@ -89,6 +118,7 @@ public class Snake{
     public void setDirection(){
         snake = this.segments.getFirst();
 
+<<<<<<< HEAD
         if(multiplayer == 1){
             //up
             if(Mayflower.isKeyDown(keys[0])){
@@ -157,6 +187,23 @@ public class Snake{
             else if(Mayflower.isKeyDown(keys[3]) && Mayflower.isKeyDown(keys2[3]) && Mayflower.isKeyDown(keys3[3]) && Mayflower.isKeyDown(keys4[3])){
                 snake.setDirection(6);
             }
+=======
+        //up
+        if(Mayflower.isKeyPressed(keys[0])){
+            snake.setDirection(8);
+        }
+        //down
+        else if(Mayflower.isKeyPressed(keys[1])){
+            snake.setDirection(2);
+        }
+        //left
+        else if(Mayflower.isKeyPressed(keys[2])){
+            snake.setDirection(4);
+        }
+        //right
+        else if(Mayflower.isKeyPressed(keys[3])){
+            snake.setDirection(6);
+>>>>>>> 2a48706ada7a0514c7f107297a1e0b9843b667a4
         }
     }
 
