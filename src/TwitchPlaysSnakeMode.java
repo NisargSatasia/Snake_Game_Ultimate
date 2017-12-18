@@ -11,13 +11,13 @@ public class TwitchPlaysSnakeMode extends World{
     private long startTime;
     private long targetTime;
     private long speed;
-    private Snake snake;
+    private SnakeT snake;
 
     public TwitchPlaysSnakeMode(int playerCount){
 
         scoreDisplay = new Label("Score: ",20);
 
-        snake = new Snake(playerCount);
+        snake = new SnakeT(playerCount);
         SnakeActor snakeActor = new SnakeActor(1);
         snake.addHead(snakeActor);
 

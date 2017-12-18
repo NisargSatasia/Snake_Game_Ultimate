@@ -9,7 +9,7 @@ public class TwitchPlaysSnakeModeButton extends Actor{
         setImage("img/twitchplayer.png");
     }
 
-    NumberOfPlayers ni = new NumberOfPlayers();
+    NumofPlayer ni = new NumofPlayer();
 
 
     public void act()
