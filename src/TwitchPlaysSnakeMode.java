@@ -133,10 +133,7 @@ public class TwitchPlaysSnakeMode extends World{
             targetTime = targetTime + speed - timeElapsed;
             startTime = System.nanoTime();
         }
-        if(snakeHead.dead()){
-            GameOver gameOverWorld = new GameOver();
-            Mayflower.setWorld(gameOverWorld);
-        }
+
 
     }
 

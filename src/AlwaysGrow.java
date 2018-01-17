@@ -179,7 +179,6 @@ public class AlwaysGrow extends World{
             for(AlwaysGrowSnake player: snakes){
                 if (!player.getSnake().dead()){
                     winner = player;
-
                 }
             }
             GameOver gameOverWorld = new GameOver(winner.getSnake().getColor());

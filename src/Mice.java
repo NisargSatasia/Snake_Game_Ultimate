@@ -25,30 +25,18 @@ public class Mice extends Actor {
 
         //up
         if(Mayflower.isKeyPressed(keys[0])){
-            if(!this.getObjectsAtOffset( 0, -this.getImage().getHeight(), WallActor.class ).isEmpty() || !this.getObjectsAtOffset( 0, -this.getImage().getHeight(), Mice.class ).isEmpty()){
-                return;
-            }
             setLocation(getX(), getY()-20);
         }
         //down
         else if(Mayflower.isKeyPressed(keys[1])){
-            if(!this.getObjectsAtOffset( 0, this.getImage().getHeight(), WallActor.class ).isEmpty() || !this.getObjectsAtOffset( 0, this.getImage().getHeight(), Mice.class ).isEmpty()){
-                return;
-            }
             setLocation(getX(), getY()+20);
         }
         //left
         else if(Mayflower.isKeyPressed(keys[2])){
-            if(!this.getObjectsAtOffset( -this.getImage().getHeight(), 0, WallActor.class ).isEmpty() || !this.getObjectsAtOffset( -this.getImage().getHeight(), 0, Mice.class ).isEmpty()){
-                return;
-            }
             setLocation(getX()-20, getY());
         }
         //right
         else if(Mayflower.isKeyPressed(keys[3])){
-            if(!this.getObjectsAtOffset( this.getImage().getHeight(), 0, WallActor.class ).isEmpty() || !this.getObjectsAtOffset( this.getImage().getHeight(), 0, Mice.class ).isEmpty()){
-                return;
-            }
             setLocation(getX()+20, getY());
         }
     }

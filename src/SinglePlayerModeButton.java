@@ -4,6 +4,7 @@ import mayflower.Mayflower;
 
 public class SinglePlayerModeButton extends Actor
 {
+
     public SinglePlayerModeButton()
     {
         setImage("img/singlePlayer.png");

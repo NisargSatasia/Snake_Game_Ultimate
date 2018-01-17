@@ -19,6 +19,14 @@ public class OnePlayerSnake extends World {
     private Snake snake;
     private Stack<Portal> portalStack;
     private Map<Portal, int[]> portalMap;
+    private int hs;
+
+    public OnePlayerSnake()
+    {
+        if(scoreGetter() >  hs && snake.getHead().dead() == true){
+            hs = scoreGetter();
+        }
+    }
 
     public OnePlayerSnake(boolean portals){
 
@@ -107,6 +115,15 @@ public class OnePlayerSnake extends World {
         addObject(label,50,575);
         System.out.println("Score Field Updated");
     }
+    public int scoreGetter()
+    {
+        int ret = snake.size();
+        return ret;
+    }
+    public int getHS()
+    {
+        return hs;
+    }
 
     public void act() {
         SnakeActor snakeHead = snake.getHead();
@@ -145,7 +162,7 @@ public class OnePlayerSnake extends World {
         }
 
         if(snakeHead.dead()){
-            GameOver gameOverWorld = new GameOver();
+            singlePlayerHighScore gameOverWorld = new singlePlayerHighScore();
             Mayflower.setWorld(gameOverWorld);
         }
     }

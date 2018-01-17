@@ -21,14 +21,10 @@ public class SnakeVsMice extends World {
     private Snake snake;
     private Map<Mice, Boolean> isDead;
     private int ticksPast;
-    private int previousWinner;
-    private boolean grew;
 
 
     public SnakeVsMice(int playerCount, int previousWinner){
         ticksPast = 0;
-        this.previousWinner = previousWinner;
-        grew = false;
 
         int[][] allkeys = new int[4][4];
 
@@ -136,8 +132,6 @@ public class SnakeVsMice extends World {
 
     public void act(){
 
-
-
         snake.setDirection();
 
         if(snake.getHead().getDirection() == 0){
@@ -177,21 +171,15 @@ public class SnakeVsMice extends World {
 
             targetTime = targetTime + speed - timeElapsed;
             startTime = System.nanoTime();
-            grew = false;
         }
 
-        if(ticksPast >= 15){
-            grew = true;
+        if(ticksPast >= 5){
             ticksPast = 0;
 
             SnakeActor toAdd = new SnakeActor(snake.getHead().getColor());
             snake.addTail(toAdd);
 
             addObject(toAdd, snake.getHead().getX(), snake.getHead().getY());
-        }
-
-        if(snake.getHead().dead() && !grew){
-            Mayflower.setWorld(new SnakeVsMice(4, previousWinner));
         }
 
 

@@ -39,6 +39,10 @@ public class SnakeActor extends Actor {
     public int getColor(){
         return color;
     }
+    public int setColor(int x){
+        this.color = x;
+        return x;
+    }
 
     public void move(){
         if (dir == 8) {
@@ -67,6 +71,7 @@ public class SnakeActor extends Actor {
     {
 
         if(this.isTouching(SnakeActor.class)) {
+            System.out.println("testlol");
             return true;
         }
         if(this.isTouching(WallActor.class)){
