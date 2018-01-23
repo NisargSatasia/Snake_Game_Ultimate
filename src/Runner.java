@@ -4,7 +4,7 @@ import mayflower.*;
 public class Runner extends Mayflower
 {
     public Runner(){
-        super("Snek", 800, 600);
+        super("Snake", 800, 600);
     }
 
     public void init()
@@ -12,7 +12,7 @@ public class Runner extends Mayflower
         //Mayflower.setFullScreen(true);
 
         //World startingWorld = new OnePlayerSnake();
-        World startingWorld = new TitleWorld();
+        TitleWorld startingWorld = new TitleWorld();
         Mayflower.setWorld(startingWorld);
     }
 

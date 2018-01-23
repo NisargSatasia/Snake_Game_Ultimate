@@ -13,9 +13,13 @@ public class fourPlayers extends Actor
     {
         if(Mayflower.mouseClicked(this))
         {
-            System.out.println("local multiplayer 4 ");
-            LocalMultiplayer ni = new LocalMultiplayer(4);
-            Mayflower.setWorld(ni);
+            System.out.println("local multiplayer player mode");
+            SnakeWorld world = new SnakeWorld();
+            GameModeManager man = new StandardGameMode(4,world);
+            InputManager input = new InputManager(man);
+            world.setInput(input);
+            Mayflower.setWorld(world);
+
         }
     }
 }

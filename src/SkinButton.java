@@ -13,9 +13,9 @@ public class SkinButton extends Actor
     {
         if(Mayflower.mouseClicked(this))
         {
-            System.out.println("Skin button pressed);
-            Skin w1 = new Skin(4, 1);
-            Mayflower.setWorld(w1);
+            System.out.println("Skin button pressed");
+            //Skin w1 = new Skin(4, 1);
+            //Mayflower.setWorld(w1);
         }
     }
 }

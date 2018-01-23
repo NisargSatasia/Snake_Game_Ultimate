@@ -6,8 +6,8 @@ public class GameOver extends World
 
     public GameOver()
     {
-        setBackground("img/gameover.png");
-        this.addObject(b,400,500);
+        setBackground("img/GOScreen.png");
+        this.addObject(b,320,400);
     }
 
     public GameOver(int color){
@@ -20,8 +20,8 @@ public class GameOver extends World
             default: winner = "nobody";
         }
 
-        this.addObject(new Label(winner+" wins!"), this.getWidth()/2, this.getHeight()/2);
-
+        this.addObject(new Label(winner+" wins!"), this.getWidth()/2-80, this.getHeight()/2-100);
+        this.addObject(b,330,350);
     }
     public void act()
     {

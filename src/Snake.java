@@ -1,7 +1,4 @@
-import mayflower.Actor;
-import mayflower.Keyboard;
-import mayflower.Label;
-import mayflower.Mayflower;
+import mayflower.*;
 import org.lwjgl.Sys;
 
 import java.util.ArrayDeque;
@@ -16,11 +13,11 @@ public class Snake{
     private Deque<SnakeActor> segments;
     private SnakeActor snake;
     private int[] keys;
+    private SnakeWorld world;
     boolean flag;
 
-    public Snake(int[] keyset){
+    public Snake(){
         segments = new ArrayDeque<>();
-        keys = keyset;
         flag = true;
     }
     public void addHead(SnakeActor sa){
@@ -28,6 +25,10 @@ public class Snake{
     }
     public void addTail(SnakeActor st){
         segments.addLast(st);
+    }
+
+    public void setWorld(SnakeWorld world){
+        this.world = world;
     }
 
     public SnakeActor getHead(){
@@ -42,43 +43,34 @@ public class Snake{
         return segments;
     }
 
-    public void setDirection(){
+    public void turnUp() {
         snake = this.segments.getFirst();
+        snake.setDirection(8);
+    }
+    public void turnDown() {
+        snake = this.segments.getFirst();
+        snake.setDirection(2);
+    }
+    public void turnLeft() {
+        snake = this.segments.getFirst();
+        snake.setDirection(4);
+    }
+    public void turnRight() {
+        snake = this.segments.getFirst();
+        snake.setDirection(6);
+    }
 
-        //up
-        if(Mayflower.isKeyPressed(keys[0])){
-            snake.setDirection(8);
-        }
-        //down
-        else if(Mayflower.isKeyPressed(keys[1])){
-            snake.setDirection(2);
-        }
-        //left
-        else if(Mayflower.isKeyPressed(keys[2])){
-            snake.setDirection(4);
-        }
-        //right
-        else if(Mayflower.isKeyPressed(keys[3])){
-            snake.setDirection(6);
-        }
+    public void grow(int color){
+
+        SnakeActor toAdd = new SnakeActor(color);
+        addTail(toAdd);
+
+        world.addObject(toAdd, getHead().getX(), getHead().getY());
     }
 
     public void move(){
 
-
-        if(segments.getFirst().isTouching(Portal.class)&&flag){
-            Portal portal = segments.getFirst().getOneIntersectingObject(Portal.class);
-            Portal link = portal.getLink();
-
-            SnakeActor newHead = segments.removeLast();
-            segments.addFirst(newHead);
-
-            newHead.setLocation(link.getX(), link.getY());
-            newHead.setDirection(snake.getDirection());
-
-            flag = false;
-            return;
-        }
+        snake = this.getHead();
 
         SnakeActor newHead = segments.removeLast();
         segments.addFirst(newHead);
@@ -87,8 +79,6 @@ public class Snake{
         newHead.setDirection(snake.getDirection());
 
         newHead.move();
-
-        flag = true;
 
     }
 
