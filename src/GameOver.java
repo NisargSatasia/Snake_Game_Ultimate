@@ -2,13 +2,11 @@ import mayflower.*;
 
 public class GameOver extends World
 {
-    backToMainMenuButton b = new backToMainMenuButton();
-
     public GameOver()
     {
-        setBackground("img/GOScreen.png");
-        this.addObject(b,320,400);
+        setBackground("img/GOscreen.png");
     }
+    backToMainMenuButton d = new backToMainMenuButton();
 
     public GameOver(int color){
         String winner;
@@ -20,11 +18,11 @@ public class GameOver extends World
             default: winner = "nobody";
         }
 
-        this.addObject(new Label(winner+" wins!"), this.getWidth()/2-80, this.getHeight()/2-100);
-        this.addObject(b,330,350);
+        this.addObject(new Label(winner+" wins!"), this.getWidth()/2, this.getHeight()/2);
+
     }
     public void act()
     {
-
+        this.addObject(d,320,380);
     }
 }

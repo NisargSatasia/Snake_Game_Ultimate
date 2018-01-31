@@ -9,7 +9,7 @@ public class TitleWorld extends World
     SinglePlayerModeButton onePlayer = new SinglePlayerModeButton();
     //PortalButton portals = new PortalButton();
     LocalMultiplayerButton multi = new LocalMultiplayerButton();
-    AlwaysGrowButton ag = new AlwaysGrowButton();
+     alwaysGrowButton ag = new alwaysGrowButton();
    // SnakeVsMiceButton svm = new SnakeVsMiceButton();
     TwitchPlaysSnakeModeButton twi = new TwitchPlaysSnakeModeButton();
 

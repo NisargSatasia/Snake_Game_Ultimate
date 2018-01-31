@@ -1,6 +1,6 @@
 import mayflower.Actor;
-import mayflower.Keyboard;
-import mayflower.Mayflower;
+        import mayflower.Keyboard;
+        import mayflower.Mayflower;
 
 public class LocalMultiplayerButton extends Actor
 {

@@ -4,13 +4,13 @@
 import mayflower.*;
 import java.util.*;
 
-public class StandardGameMode extends GameModeManager {
+public class AlwaysGrowMode extends GameModeManager {
     private Map<Snake, Boolean> isDead;
     private SnakeWorld world;
     private List<Snake> snakes;
     private int snakeCount;
 
-    public StandardGameMode(int numPlayers, SnakeWorld world){
+    public AlwaysGrowMode(int numPlayers, SnakeWorld world){
         snakeCount = numPlayers;
         this.world = world;
 
@@ -41,6 +41,8 @@ public class StandardGameMode extends GameModeManager {
             world.addObject(snakes.get(2).getHead(), 37 * 20, 2 * 20);
             world.addObject(snakes.get(3).getHead(), 2 * 20, 27 * 20);
         }
+
+        world.removePoint();
 
 
     }
@@ -84,22 +86,17 @@ public class StandardGameMode extends GameModeManager {
                     if(isDead.get(snake).booleanValue()==true){
                         continue;
                     }
-                    boolean grew = false;
-                    if(snake.getHead().isTouching(PointActor.class)){
-                        world.removePoint();
-                        world.setPoint();
-                        snake.grow(snakes.indexOf(snake)+1);
-                        grew = true;
-                    }
 
-                    if(snake.getHead().dead() && !grew){
+                    snake.grow(snake.getHead().getColor());
+
+                    if(snake.getHead().dead()){
                         isDead.put(snake, new Boolean(true));
                     }
 
                     snake.move();
 
 
-                    if(snake.getHead().dead() && !grew){
+                    if(snake.getHead().dead()){
                         isDead.put(snake, new Boolean(true));
                     }
                 }
@@ -109,9 +106,7 @@ public class StandardGameMode extends GameModeManager {
                     snakeCount++;
                     if(isDead.get(player).booleanValue()) {
                         snakeCount--;
-                        for (SnakeActor s : player.getSegments()) {
-                            world.removeObject(s);
-                        }
+                        world.removeObject(player.getHead());
                     }
                 }
                 ;break;
@@ -119,6 +114,9 @@ public class StandardGameMode extends GameModeManager {
         System.out.println(snakeCount);
         if(snakeCount == 0){
             Mayflower.setWorld(new GameOver());
+        }
+        if(snakeCount == 1){
+
         }
 
     }

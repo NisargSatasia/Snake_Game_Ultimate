@@ -2,9 +2,9 @@ import mayflower.Actor;
 import mayflower.Keyboard;
 import mayflower.Mayflower;
 
-public class AlwaysGrowButton extends Actor
+public class alwaysGrowButton extends Actor
 {
-    public AlwaysGrowButton()
+    public alwaysGrowButton()
     {
         setImage("img/alwaysGrow.png");
     }
@@ -13,9 +13,8 @@ public class AlwaysGrowButton extends Actor
     {
         if(Mayflower.mouseClicked(this))
         {
-            System.out.println("Always Grow Mode");
-            AlwaysGrow a = new AlwaysGrow(2);
-            Mayflower.setWorld(a);
+            playerNum x = new playerNum();
+            Mayflower.setWorld(x);
         }
     }
 }

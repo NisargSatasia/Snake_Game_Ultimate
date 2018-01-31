@@ -18,7 +18,7 @@ public class Snake{
 
     public Snake(){
         segments = new ArrayDeque<>();
-        flag = true;
+        flag = false;
     }
     public void addHead(SnakeActor sa){
         segments.addFirst(sa);
@@ -65,7 +65,7 @@ public class Snake{
         SnakeActor toAdd = new SnakeActor(color);
         addTail(toAdd);
 
-        world.addObject(toAdd, getHead().getX(), getHead().getY());
+        world.addObject(toAdd, 10000, 10000);
     }
 
     public void move(){

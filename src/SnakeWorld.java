@@ -19,8 +19,8 @@ public class SnakeWorld extends World {
     private long targetTime;
     private long speed;
     private Snake snake;
-    private Stack<Portal> portalStack;
-    private Map<Portal, int[]> portalMap;
+//    private Stack<Portal> portalStack;
+//    private Map<Portal, int[]> portalMap;
 
     public void act(){
     }
