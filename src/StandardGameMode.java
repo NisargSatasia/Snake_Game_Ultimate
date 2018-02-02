@@ -1,6 +1,7 @@
 /**
  * Created by s581467 on 1/17/2018.
  */
+import com.sun.org.apache.xerces.internal.impl.xpath.XPath;
 import mayflower.*;
 import java.util.*;
 
@@ -9,11 +10,12 @@ public class StandardGameMode extends GameModeManager {
     private SnakeWorld world;
     private List<Snake> snakes;
     private int snakeCount;
+    private Map<String,String> skin;
 
-    public StandardGameMode(int numPlayers, SnakeWorld world){
+    public StandardGameMode(int numPlayers, SnakeWorld world, Map<String,String> color){
         snakeCount = numPlayers;
         this.world = world;
-
+        skin = color;
         snakes = new ArrayList<>();
         isDead = new HashMap<>();
 

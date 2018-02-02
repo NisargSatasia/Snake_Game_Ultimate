@@ -1,11 +1,14 @@
 import mayflower.Actor;
-import mayflower.Keyboard;
+import java.util.*;
 import mayflower.Mayflower;
 
 public class alwaysGrowButton extends Actor
 {
-    public alwaysGrowButton()
+    private Map<String,String> skin;
+
+    public alwaysGrowButton(Map<String,String> color)
     {
+        skin = color;
         setImage("img/alwaysGrow.png");
     }
 

@@ -1,26 +1,28 @@
 import mayflower.*;
-import mayflower.Color;
-import mayflower.Label;
-import mayflower.Timer;
+import java.util.*;
 
 public class TitleWorld extends World
 {
+    private Map<String, String> skin;
 
-    SinglePlayerModeButton onePlayer = new SinglePlayerModeButton();
-    //PortalButton portals = new PortalButton();
-    LocalMultiplayerButton multi = new LocalMultiplayerButton();
-     alwaysGrowButton ag = new alwaysGrowButton();
-   // SnakeVsMiceButton svm = new SnakeVsMiceButton();
-    TwitchPlaysSnakeModeButton twi = new TwitchPlaysSnakeModeButton();
+    SinglePlayerModeButton onePlayer;
+    LocalMultiplayerButton multi;
+    alwaysGrowButton ag;
+    TwitchPlaysSnakeModeButton twi;
 
-    public TitleWorld()
+    public TitleWorld(String color)
     {
+        skin = new HashMap<String, String>();
+        skin.put();
+        onePlayer = new SinglePlayerModeButton(skin);
+        multi = new LocalMultiplayerButton(skin);
+        ag = new alwaysGrowButton(skin);
+        twi = new TwitchPlaysSnakeModeButton(skin);
+
         setBackground("img/TitleScreen.png");
         this.addObject(onePlayer,300,105);
-        //this.addObject(portals,300,165);
         this.addObject(multi, 300,165);
         this.addObject(ag, 300,225);
-        //this.addObject(svm, 300, 345);
         this.addObject(twi, 300, 285);
 
     }
